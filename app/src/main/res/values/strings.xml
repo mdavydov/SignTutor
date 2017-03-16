@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">UkrSignLang</string>
+    <string name="item">ItemString</string>
+    <string name="search_icon">Search Icon</string>
+    <string name="button_details">Details</string>
+    <string name="button_buy">Buy</string>
+    <string name="button_web">Online</string>
+    <string name="moreinfoheader">Her comes more info about your item</string>
+    <string name="moreinfo">More info\nMore info\nMore info\nMore info\nMore info\nMore info\nMore info\n</string>
+</resources>
