@@ -1,8 +1,8 @@
-package ua.lpnu.signtutor;
+package com.gesturefy.signtutor;
 
 import java.util.HashMap;
 
-import ua.lpnu.signtutor.R;
+import com.gesturefy.signtutor.R;
 
 /**
  * Created by maksymdavydov on 6/23/16.
@@ -1164,7 +1164,7 @@ public class SignVideoLibrary
         m_word_to_video_map.put("Прасувати", R.raw.prasuvaty );
         m_word_to_video_map.put("Прибирати", R.raw.prybyraty );
         m_word_to_video_map.put("Приносити", R.raw.prynosyty );
-        m_word_to_video_map.put("Приїхати", R.raw.pryyikhaty );
+        //m_word_to_video_map.put("Приїхати", R.raw.pryyikhaty );
         m_word_to_video_map.put("Программа", R.raw.prohramma );
         m_word_to_video_map.put("Продавати", R.raw.prodavaty );
         m_word_to_video_map.put("Півострів", R.raw.pivostriv );

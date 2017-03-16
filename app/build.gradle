@@ -5,7 +5,7 @@ android {
     buildToolsVersion "23.0.2"
 
     defaultConfig {
-        applicationId "ua.lpnu.signtutor"
+        applicationId "com.gesturefy.signtutor"
         minSdkVersion 16
         targetSdkVersion 23
         versionCode 1

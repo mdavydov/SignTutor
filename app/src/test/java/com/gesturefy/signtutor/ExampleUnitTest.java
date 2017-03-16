@@ -1,4 +1,4 @@
-package ua.lpnu.signtutor;
+package com.gesturefy.signtutor;
 
 import org.junit.Test;
 

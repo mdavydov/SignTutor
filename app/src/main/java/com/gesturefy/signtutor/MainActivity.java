@@ -1,15 +1,18 @@
-package ua.lpnu.signtutor;
+package com.gesturefy.signtutor;
 
 import android.content.Context;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
@@ -22,6 +25,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 {
 
     ViewGroup m_my_list;
+    List<String> all_words_list = new ArrayList<String>();
     SignVideoLibrary m_video_library = new SignVideoLibrary();
 
     @Override
@@ -32,36 +36,72 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         m_my_list = (ViewGroup)findViewById(R.id.list);
 
-        LayoutInflater l = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        all_words_list.addAll(m_video_library.m_word_to_video_map.keySet());
+        Collections.sort(all_words_list, String.CASE_INSENSITIVE_ORDER);
 
-        List<String> string_list = new ArrayList<String>();
-        string_list.addAll(m_video_library.m_word_to_video_map.keySet());
-        Collections.sort(string_list, String.CASE_INSENSITIVE_ORDER);
-
-        for(String s : string_list)
-        {
-            View item = l.inflate( R.layout.list_item, null);
-            ((TextView)item.findViewById(R.id.itemtext)).setText(s);
-            item.findViewById(R.id.morebutton).setOnClickListener(this);
-            m_my_list.addView(item);
-        }
-
-        findViewById(R.id.detail).setOnClickListener(this);
+        filterListWithPrefix("А");
+        addTextChangedEvents();
 
         VideoView videoview = (VideoView) findViewById(R.id.video_player_view);
-
-
-        Context context = getApplicationContext();
-        int duration = Toast.LENGTH_LONG;
-
-        Toast toast = Toast.makeText(context, "" + R.raw.prybyraty, duration);
-        toast.show();
+        videoview.setOnTouchListener(this);
 
         //Uri uri = Uri.parse("android.resource://"+getPackageName()+"/"+R.raw.prybyraty);
         //videoview.setVideoURI(uri);
         //videoview.start();
+    }
 
-        videoview.setOnTouchListener(this);
+
+    protected void filterListWithPrefix(String prefix)
+    {
+        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+        m_my_list.removeAllViews();
+        int num_added = 0;
+        String lower_prefix = prefix.toLowerCase();
+
+        for(String s : all_words_list)
+        {
+            if (s.toLowerCase().startsWith(lower_prefix))
+            {
+                ++num_added;
+                View item = inflater.inflate(R.layout.list_item, null);
+                ((TextView) item.findViewById(R.id.itemtext)).setText(s);
+                item.findViewById(R.id.morebutton).setOnClickListener(this);
+                m_my_list.addView(item);
+                if (num_added>20) break;
+            }
+        }
+
+        if (num_added==0)
+        {
+            Toast toast = Toast.makeText(getApplicationContext(), "Not found", Toast.LENGTH_LONG);
+            toast.show();
+        }
+    }
+
+    protected void addTextChangedEvents()
+    {
+        EditText search_text = (EditText) findViewById(R.id.text_entered);
+        search_text.addTextChangedListener(new TextWatcher() {
+
+            public void onTextChanged(CharSequence s, int start, int before,
+                                      int count) {
+                if(!s.equals("") )
+                {
+                    filterListWithPrefix(s.toString());
+                }
+
+            }
+
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                                          int after) {
+
+            }
+
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
     @Override

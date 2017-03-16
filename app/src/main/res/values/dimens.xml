@@ -5,5 +5,6 @@
     <dimen name="items_horizontal_margin">10dp</dimen>
     <dimen name="items_vertical_margin">10dp</dimen>
     <dimen name="buttonbar_height">60dp</dimen>
+    <dimen name="video_min_height">60dp</dimen>
     <dimen name="header_text_size">20dp</dimen>
 </resources>
